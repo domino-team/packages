@@ -8,17 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gnupg
-PKG_VERSION:=1.4.20
+PKG_VERSION:=1.4.21
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=ftp://ftp.franken.de/pub/crypt/mirror/ftp.gnupg.org/gcrypt/gnupg \
 	ftp://ftp.gnupg.org/gcrypt/gnupg
-PKG_MD5SUM:=b7af897a041c03c8ad1c7c466b54d10d
+PKG_HASH:=6b47a3100c857dcab3c60e6152e56a997f2c7862c1b8b2b25adf3884a1ae2276
 
 PKG_LICENSE:=GPL-3.0
 PKG_LICENSE_FILES:=COPYING
-PKG_MAINTAINER:=Nicolas Thill <nico@openwrt.org>
+PKG_MAINTAINER:=Daniel Dickinson <lede@cshore.thecshore.com>
 
 PKG_INSTALL:=1
 
@@ -27,6 +27,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/gnupg/Default
   SECTION:=utils
   CATEGORY:=Utilities
+  SUBMENU:=Encryption
   DEPENDS:=+zlib +libncurses +libreadline
   TITLE:=GNU privacy guard - a free PGP replacement
   URL:=http://www.gnupg.org/
@@ -37,9 +38,14 @@ define Package/gnupg
   MENU:=1
 endef
 
+define Package/gpgv
+  $(call Package/gnupg/Default)
+  TITLE:=GnuPG signature verification only
+endef
+
 define Package/gnupg-utils
   $(call Package/gnupg/Default)
-  DEPENDS:=gnupg
+  DEPENDS:=gnupg +libcurl
   TITLE:=Key management utilities for GnuPG
 endef
 
@@ -48,6 +54,13 @@ define Package/gnupg/description
  It can be used to encrypt data and to create digital signatures.
  It includes an advanced key management facility and is compliant
  with the proposed OpenPGP Internet standard as described in RFC2440.
+ .
+ GnuPG does not use any patented algorithms so it cannot be compatible
+ with PGP2 because it uses IDEA (which is patented worldwide).
+endef
+
+define Package/gpgv/description
+ GPGv is a stripped down version of GnuPG that only checks signatures.
  .
  GnuPG does not use any patented algorithms so it cannot be compatible
  with PGP2 because it uses IDEA (which is patented worldwide).
@@ -67,9 +80,7 @@ CONFIGURE_ARGS += \
 	--disable-bzip2 \
 	--disable-ldap \
 	--disable-finger \
-	--disable-ftp \
 	--disable-dns-srv \
-	--enable-fake-curl \
 	--disable-regex \
 
 MAKE_FLAGS += \
@@ -78,6 +89,11 @@ MAKE_FLAGS += \
 define Package/gnupg/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/gpg $(1)/usr/bin/
+endef
+
+define Package/gpgv/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/gpgv $(1)/usr/bin/
 endef
 
 define Package/gnupg-utils/install
@@ -89,4 +105,5 @@ define Package/gnupg-utils/install
 endef
 
 $(eval $(call BuildPackage,gnupg))
+$(eval $(call BuildPackage,gpgv))
 $(eval $(call BuildPackage,gnupg-utils))

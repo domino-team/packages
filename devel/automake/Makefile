@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 OpenWrt.org
+# Copyright (C) 2015-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,11 +9,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=automake
 PKG_VERSION:=1.15
-PKG_RELEASE:=2
+PKG_RELEASE:=4
 
 PKG_SOURCE_URL:=@GNU/automake
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_MD5SUM:=716946a105ca228ab545fc37a70df3a3
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_HASH:=9908c75aabd49d13661d6dcb1bc382252d22cc77bf733a2d55e87f2aa2db8636
 PKG_MAINTAINER:=Heinrich Schuchardt <xypron.glpk@gmx.de>
 PKG_LICENSE:=GPL-3.0+
 
@@ -34,18 +34,18 @@ define Package/automake/description
   with the GNU Coding Standards.
 endef
 
+FIX_PATHS = $(SED) '1c \#!/usr/bin/perl' -e 's| /[^ ]*/bin/perl| /usr/bin/perl|g'
+
 define Package/automake/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/automake-$(PKG_VERSION) \
 	  $(1)/usr/bin/automake-$(PKG_VERSION)
-	$(LN) -r $(1)/usr/bin/automake-$(PKG_VERSION) $(1)/usr/bin/automake
+	$(LN) automake-$(PKG_VERSION) $(1)/usr/bin/automake
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/aclocal-$(PKG_VERSION) \
 	  $(1)/usr/bin/aclocal-$(PKG_VERSION)
-	$(LN) -r $(1)/usr/bin/aclocal-$(PKG_VERSION) $(1)/usr/bin/aclocal
-	$(SED) 's|$(STAGING_DIR_HOST)|/usr|g' \
-	  $(1)/usr/bin/automake-$(PKG_VERSION)
-	$(SED) 's|$(STAGING_DIR_HOST)|/usr|g' \
-	  $(1)/usr/bin/aclocal-$(PKG_VERSION)
+	$(LN) aclocal-$(PKG_VERSION) $(1)/usr/bin/aclocal
+	$(FIX_PATHS) $(1)/usr/bin/automake-$(PKG_VERSION)
+	$(FIX_PATHS) $(1)/usr/bin/aclocal-$(PKG_VERSION)
 	$(INSTALL_DIR) $(1)/usr/share/automake-$(PKG_VERSION)
 
 	for dir in \

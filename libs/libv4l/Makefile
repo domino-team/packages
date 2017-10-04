@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=v4l-utils
-PKG_VERSION:=1.6.3
+PKG_VERSION:=1.10.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://www.linuxtv.org/downloads/v4l-utils
-PKG_MD5SUM:=307858616be6374f63bf946307f15a7f
+PKG_HASH:=78ead27ee58a701d7c6342303cf4520bdd4a2b88a7813bc99a0b389307e4336b
 
 PKG_MAINTAINER:=Ted Hess <thess@kitschensync.net>
 
@@ -76,7 +76,7 @@ define Package/v4l-utils/description
   This package contains the video4linux utilities.
 endef
 
-TARGET_CFLAGS += $(FPIC) -std=gnu99
+TARGET_CFLAGS += $(FPIC)
 TARGET_LDFLAGS += -largp
 
 CONFIGURE_ARGS+= \

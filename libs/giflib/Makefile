@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2006-2015 OpenWrt.org
+# Copyright (C) 2006-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=giflib
-PKG_VERSION:=5.1.1
+PKG_VERSION:=5.1.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@SF/giflib
-PKG_MD5SUM:=1c39333192712788c6568c78a949f13e
+PKG_HASH:=76c0a084c3b02f9315ff937b8be6096186002fea26f33e2123081ba2be6e2a7c
 
 PKG_MAINTAINER:=Ted Hess <thess@kitschensync.net>
 
@@ -23,6 +23,7 @@ PKG_LICENSE_FILES:=COPYING
 PKG_FIXUP:=autoreconf
 PKG_REMOVE_FILES:=autogen.sh aclocal.m4
 
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/giflib
@@ -39,7 +40,6 @@ define Package/giflib/description
 endef
 
 TARGET_CFLAGS += $(FPIC)
-CONFIGURE_ARGS += --enable-x11=no
 
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR)
@@ -58,4 +58,5 @@ define Package/giflib/install
 	$(CP) $(PKG_BUILD_DIR)/lib/.libs/lib*so* $(1)/usr/lib/
 endef
 
+$(eval $(call HostBuild))
 $(eval $(call BuildPackage,giflib))

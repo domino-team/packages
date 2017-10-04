@@ -9,17 +9,19 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=autoconf
 PKG_VERSION:=2.69
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=@GNU/autoconf
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_MD5SUM:=82d05e03b93e45f5a39b828dc9c6c29b
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_HASH:=64ebcec9f8ac5b2487125a86a7760d2591ac9e1d3dbd59489633f9de62a57684
 PKG_MAINTAINER:=Heinrich Schuchardt <xypron.glpk@gmx.de>
 PKG_LICENSE:=GPL-3.0+
 
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+
+CONFIGURE_VARS += M4=m4 EMACS=no
 
 define Package/autoconf
   SECTION:=devel
@@ -42,7 +44,6 @@ endef
 
 define Package/autoconf/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(SED) 's|$(STAGING_DIR_HOST)|/usr|g' $(PKG_INSTALL_DIR)/usr/bin/autom4te
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/share/autoconf
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/share/autoconf/INSTALL \

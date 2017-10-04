@@ -9,11 +9,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xinetd
 PKG_VERSION:=2.3.15
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.xinetd.org
-PKG_MD5SUM:=77358478fd58efa6366accae99b8b04c
+PKG_HASH:=bf4e060411c75605e4dcbdf2ac57c6bd9e1904470a2f91e01ba31b50a80a5be3
 PKG_LICENSE:=xinetd
 PKG_LICENSE_FILES:=COPYRIGHT
 
@@ -39,6 +39,7 @@ endef
 
 define Package/xinetd/conffiles
 /etc/xinetd.conf
+/etc/xinetd.d/
 endef
 
 TARGET_CFLAGS += -DNO_RPC

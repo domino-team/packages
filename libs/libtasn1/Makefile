@@ -8,12 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libtasn1
-PKG_VERSION:=4.7
+PKG_VERSION:=4.12
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=ftp://ftp.gnu.org/gnu/libtasn1
-PKG_MD5SUM:=12d10ca4ae0a3b95f7aa06a076da39ec
+PKG_SOURCE_URL:=@GNU/$(PKG_NAME)
+PKG_HASH:=6753da2e621257f33f5b051cc114d417e5206a0818fe0b1ecfd6153f70934753
+PKG_LICENSE:=LGPLv2.1+
+PKG_LICENSE_FILES:=COPYING.LIB
 
 #PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -37,6 +39,7 @@ TARGET_CFLAGS += $(FPIC)
 
 CONFIGURE_ARGS += \
 		--enable-shared \
+		--disable-gcc-warnings \
 		--enable-static
 
 define Build/InstallDev

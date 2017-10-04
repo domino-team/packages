@@ -16,6 +16,7 @@ PKG_SOURCE_URL:=https://github.com/rakshasa/libtorrent.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=14e793b75dac95c51ad64ff9cd2dc6772b68c625
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_MIRROR_HASH:=0971c21d0e6b7028bc319e97c82bdb213c17dfc503fc0f89b809e5ed7ce98142
 
 PKG_FIXUP:=autoreconf
 PKG_BUILD_PARALLEL:=1
@@ -28,14 +29,14 @@ define Package/libtorrent
   CATEGORY:=Libraries
   TITLE:=Rakshasa's BitTorrent library
   URL:=http://libtorrent.rakshasa.no/
-  DEPENDS:=+libopenssl +libsigcxx
+  DEPENDS:=+libopenssl +libsigcxx +zlib
   MAINTAINER:=Peter Wagner <tripolar@gmx.at>
 endef
 
 define Package/libtorrent/description
  LibTorrent is a BitTorrent library written in C++ for *nix, with a focus on
  high performance and good code. The library differentiates itself from other
- implementations by transfering directly from file pages to the network stack.
+ implementations by transferring directly from file pages to the network stack.
  On high-bandwidth connections it is able to seed at 3 times the speed of the
  official client.
 endef

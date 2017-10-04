@@ -9,11 +9,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shadow
 PKG_VERSION:=4.2.1
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://pkg-shadow.alioth.debian.org/releases
-PKG_MD5SUM:=2bfafe7d4962682d31b5eba65dba4fc8
+PKG_HASH:=3b0893d1476766868cd88920f4f1231c4795652aa407569faff802bcda0f3d41
 PKG_MAINTAINER:=Steven Barth <cyrus@openwrt.org>
 PKG_LICENSE:=BSD-3-Clause
 
@@ -25,8 +25,10 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
 SHADOW_APPLETS := \
-	chage groupadd groupdel groupmod groups passwd su \
-	useradd userdel usermod
+	chage chpasswd chfn chsh expiry faillog gpasswd \
+	groupadd groupdel groupmems groupmod groups \
+	lastlog login newgrp nologin passwd su \
+	useradd userdel usermod vipw
 
 CONFIGURE_ARGS += \
 	--without-audit \

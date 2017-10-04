@@ -12,8 +12,8 @@ PKG_VERSION:=0.3-pre-beta7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-LINUXONLY.tar.gz
-PKG_SOURCE_URL:=http://nixgeneration.com/~jaime/netdiscover/releases/
-PKG_MD5SUM:=8780e66d00496e933b4064cfe9ae61da
+PKG_SOURCE_URL:=@SF/netdiscover
+PKG_HASH:=01c6e090c3b06e374005f7efcead3b5b2f63f47bfb94383c1dbde9abcf1cd8aa
 PKG_MAINTAINER:=Mislav Novakovic <mislav.novakovic@sartura.hr>
 PKG_LICENSE:=GPL-2.0
 
@@ -27,12 +27,8 @@ define Package/netdiscover
   CATEGORY:=Network
   DEPENDS:=+libpcap +libnet-1.2.x +libpthread
   TITLE:=An active/passive address reconnaissance tool
-  URL:=http://nixgeneration.com/~jaime/netdiscover/
+  URL:=https://sourceforge.net/projects/netdiscover
 endef
-
-CONFIGURE_VARS+= \
-	CPPFLAGS="$(TARGET_CPPFLAGS) -I$(STAGING_DIR)/usr/lib/libnet-1.2.x/lib" \
-	LDFLAGS="$(TARGET_LDFLAGS) -L$(STAGING_DIR)/usr/lib/libnet-1.2.x/lib"
 
 define Package/netdiscover/install
 	$(INSTALL_DIR) $(1)/usr/sbin

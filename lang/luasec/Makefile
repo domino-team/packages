@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luasec
-PKG_VERSION:=0.5.1
+PKG_VERSION:=0.6
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/brunoos/luasec/archive/
-PKG_MD5SUM:=e34e274a57e9045641191eb7398cce2a
+PKG_HASH:=cef3a35c18beb8a54d9c8ce6260a4cabbd9a386de8711320d084daffad0aed5d
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_NAME)-$(PKG_VERSION)
 
 MAINTAINER:=W. Michael Petullo <mike@flyn.org>
@@ -43,8 +43,8 @@ endef
 MAKE_FLAGS += \
 	INCDIR="$(TARGET_CPPFLAGS) -I." \
 	LIBDIR="$(TARGET_LDFLAGS) -L./luasocket" \
-	LUACPATH="/usr/lib/lua" \
-	LUAPATH="/usr/lib/lua"
+	LUACPATH="$(PKG_INSTALL_DIR)/usr/lib/lua" \
+	LUAPATH="$(PKG_INSTALL_DIR)/usr/lib/lua"
 
 define Build/Compile
 $(call Build/Compile/Default,linux)

@@ -14,7 +14,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://dbus.freedesktop.org/releases/dbus/
-PKG_MD5SUM:=27b8e99ffad603b8acfa25201c6e3d5c
+PKG_HASH:=ad7dcad73ad9b0ff55819985d354eacfffe07e2eb8c763e155efc21d6001084b
 PKG_MAINTAINER:=Steven Barth <cyrus@openwrt.org>
 PKG_LICENSE:=AFL-2.1
 
@@ -122,11 +122,11 @@ HOST_CONFIGURE_ARGS+= \
 	--disable-verbose-mode \
 	--disable-xml-docs \
 	--with-dbus-user=root \
-	--with-dbus-daemondir="$(STAGIND_DIR)/host/bin" \
-	--with-system-socket="$(STAGING_DIR)/host/var/run/dbus/system_bus_socket" \
-	--with-system-pid-file="$(STAGING_DIR)/host/var/run/dbus.pid" \
+	--with-dbus-daemondir="$(STAGING_DIR_HOSTPKG)/bin" \
+	--with-system-socket="$(STAGING_DIR_HOSTPKG)/var/run/dbus/system_bus_socket" \
+	--with-system-pid-file="$(STAGING_DIR_HOSTPKG)/var/run/dbus.pid" \
 	--without-x \
-	--libexecdir="$(STAGING_DIR)/host/lib/dbus-1"
+	--libexecdir="$(STAGING_DIR_HOSTPKG)/lib/dbus-1"
 
 HOST_CONFIGURE_VARS+= \
 	ac_cv_have_abstract_sockets="yes" \

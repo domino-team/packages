@@ -9,11 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=file
 PKG_VERSION:=5.25
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=ftp://ftp.astron.com/pub/file/
-PKG_MD5SUM:=e6a972d4e10d9e76407a432f4a63cd4c
+PKG_SOURCE_URL:=https://sources.lede-project.org/ \
+	http://pkgs.fedoraproject.org/lookaside/pkgs/file/ \
+	http://download.openpkg.org/components/cache/file/ \
+	ftp://ftp.astron.com/pub/file/
+PKG_HASH:=3735381563f69fb4239470b8c51b876a80425348b8285a7cded8b61d6b890eca
 
 PKG_LICENSE:=BSD-2c
 PKG_LICENSE_FILES:=COPYING
@@ -27,11 +30,11 @@ include $(INCLUDE_DIR)/package.mk
 define Package/file/Default
   TITLE:=File type determination
   URL:=ftp://ftp.astron.com/pub/file/
-  MAINTAINER:=Luka Perkov <luka@openwrt.org>
+  MAINTAINER:=Marko Ratkaj <marko.ratkaj@sartura.hr>
 endef
 
 define Package/file
-$(call package/file/Default)
+$(call Package/file/Default)
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE+= utility
@@ -39,7 +42,7 @@ $(call package/file/Default)
 endef
 
 define Package/libmagic
-$(call package/file/Default)
+$(call Package/file/Default)
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE+= library
@@ -90,7 +93,7 @@ endef
 
 define Package/libmagic/install
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/libmagic.so.* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libmagic.so.* $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,file))

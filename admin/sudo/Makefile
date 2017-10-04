@@ -15,7 +15,7 @@ PKG_LICENSE_FILES:=doc/LICENSE
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.sudo.ws/dist
-PKG_MD5SUM:=93dbd1e47c136179ff1b01494c1c0e75
+PKG_HASH:=a8a697cbb113859058944850d098464618254804cf97961dee926429f00a1237
 
 PKG_INSTALL:=1
 
@@ -64,8 +64,8 @@ define Host/Compile
 endef
 
 define Host/Install
-	$(INSTALL_DIR) $(STAGING_DIR)/host/bin
-	$(CP) $(HOST_BUILD_DIR)/lib/util/mksig{list,name} $(STAGING_DIR)/host/bin/
+	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/bin
+	$(CP) $(HOST_BUILD_DIR)/lib/util/mksig{list,name} $(STAGING_DIR_HOSTPKG)/bin/
 endef
 
 $(eval $(call HostBuild))

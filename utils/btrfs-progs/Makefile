@@ -8,15 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=btrfs-progs
-PKG_VERSION:=3.19.1
-PKG_RELEASE:=4
+PKG_VERSION:=4.11
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-v$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@KERNEL/linux/kernel/people/kdave/btrfs-progs/
-PKG_MD5SUM:=ec3b3c99df18633ddc9e41f0680c5a51
+PKG_HASH:=e17a68cc52a27d905b715445e91ddbaa4d42de4847d54836d6ed21e012dabf0e
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-v$(PKG_VERSION)
 
-PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
 PKG_LICENSE:=GPL-2.0
 PKG_LICENSE_FILES:=COPYING
 
@@ -45,12 +44,14 @@ define Package/btrfs-progs/description
 endef
 
 progs = btrfs btrfs-debug-tree btrfs-find-root btrfs-image btrfs-map-logical \
-	btrfs-show-super btrfstune btrfs-zero-log fsck.btrfs mkfs.btrfs
+	btrfs-select-super btrfstune btrfs-zero-log fsck.btrfs mkfs.btrfs
 
 CONFIGURE_ARGS += \
 	--disable-backtrace \
 	--disable-convert \
 	--disable-documentation
+
+EXTRA_CFLAGS=$(TARGET_CPPFLAGS)
 
 define Package/btrfs-progs/install
 	$(INSTALL_DIR) $(1)/usr/lib

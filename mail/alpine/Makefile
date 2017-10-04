@@ -13,7 +13,7 @@ PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=http://patches.freeiz.com/alpine/release/src/
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_MD5SUM:=043b67666af73b26f9627ad97e2aaf92
+PKG_HASH:=ed639b6e5bb97e6b0645c85262ca6a784316195d461ce8d8411999bf80449227
 
 PKG_MAINTAINER:=Antti Seppälä <a.seppala@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -35,7 +35,7 @@ define Package/alpine/Default
 endef
 
 define Package/alpine/Default/description
- Alpine (Alternatively Licenced Program for Internet News and Email) is a
+ Alpine (Alternatively Licensed Program for Internet News and Email) is a
  free software email client developed at the University of Washington.
  It is suitable for both the inexperienced email user as well as for
  the most demanding power user.

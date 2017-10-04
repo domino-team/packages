@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012-2015 OpenWrt.org
+# Copyright (C) 2012-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,8 +7,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tgt
-PKG_VERSION:=1.0.61
-PKG_REV:=f13345e12f49e5bcae2cfd6c5c7d530b328753f0
+PKG_VERSION:=1.0.65
+PKG_REV:=c8f86393d2ea3f37b64963f66af240f17d88b43d
 PKG_RELEASE:=1
 PKG_USE_MIPS16:=0
 
@@ -30,7 +30,7 @@ define Package/tgt
   CATEGORY:=Network
   URL:=http://stgt.sourceforge.net/
   TITLE:=userspace iSCSI target
-  DEPENDS:=+libpthread +libaio +@KERNEL_AIO +@KERNEL_DIRECT_IO
+  DEPENDS:=+libpthread +libaio @KERNEL_AIO
 endef
 
 define Package/tgt/description
@@ -41,9 +41,11 @@ Note that if you are interested in only iSCSI (probably you are), you need only 
 endef
 
 define Build/Compile
-	CC=$(TARGET_CC) CFLAGS="$(TARGET_CFLAGS)" $(MAKE) -C $(PKG_BUILD_DIR) \
+	CC=$(TARGET_CC) CFLAGS="$(TARGET_CFLAGS) $(TARGET_CPPFLAGS)" \
+		$(MAKE) -C $(PKG_BUILD_DIR) \
 		DESTDIR="$(PKG_INSTALL_DIR)" \
 		LD="$(TARGET_CC)" \
+		LDFLAGS="$(TARGET_LDFLAGS)" \
 		install-programs
 endef
 

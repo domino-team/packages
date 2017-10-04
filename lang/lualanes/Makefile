@@ -13,6 +13,7 @@ PKG_VERSION:=3.9.4
 PKG_RELEASE=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.gz
+PKG_MIRROR_HASH:=e9b053e627edaf7ef229af176177bf2bd0edd31b69690ba7c1e6be41041ffd07
 PKG_SOURCE_URL:=https://github.com/LuaLanes/lanes.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_REV)
@@ -42,8 +43,8 @@ endef
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) all \
         CC="$(TARGET_CC)" \
-        LUA="$(STAGING_DIR)/host/bin/lua" \
-        LUAC="$(STAGING_DIR)/host/bin/luac" \
+        LUA="$(STAGING_DIR_HOSTPKG)/bin/lua" \
+        LUAC="$(STAGING_DIR_HOSTPKG)/bin/luac" \
         OPT_FLAGS="$(TARGET_CFLAGS) --std=c99 -Dpthread_yield=sched_yield"
 endef
 

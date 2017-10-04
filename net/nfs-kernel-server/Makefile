@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2015 OpenWrt.org
+# Copyright (C) 2009-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,9 +7,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nfs-kernel-server
-PKG_VERSION:=1.3.3
+PKG_VERSION:=2.1.1
 PKG_RELEASE:=1
-PKG_MD5SUM:=9b87d890669eaaec8e97a2b0a35b2665
+PKG_HASH:=0a28416948516c26f3bfe90425b0de09b79364dc1f508bf1dda8de66e1edbb09
 
 PKG_SOURCE_URL:=@SF/nfs
 PKG_SOURCE:=nfs-utils-$(PKG_VERSION).tar.bz2
@@ -60,7 +60,7 @@ define Package/nfs-utils
   $(call Package/nfs-kernel-server/Default)
   SECTION:=utils
   CATEGORY:=Utilities
-  DEPENDS+= +libevent +USE_UCLIBC:librpc
+  DEPENDS+= +libevent2 +USE_UCLIBC:librpc
   TITLE:=updated mount utility (includes nfs4)
 endef
 
@@ -93,8 +93,8 @@ MAKE_FLAGS += \
 	OPT="$(TARGET_CFLAGS)" \
 	INSTALLSUID="install -m 4755" \
 	DESTDIR="$(PKG_INSTALL_DIR)" \
-	RPCGEN_PATH=$(STAGING_DIR)/host/bin/rpcgen \
-	RPCGEN=$(STAGING_DIR)/host/bin/rpcgen
+	RPCGEN_PATH=$(STAGING_DIR_HOSTPKG)/bin/rpcgen \
+	RPCGEN=$(STAGING_DIR_HOSTPKG)/bin/rpcgen
 
 HOST_CFLAGS += -Dlinux
 
@@ -125,8 +125,8 @@ define Host/Compile
 endef
 
 define Host/Install
-	$(INSTALL_DIR) $(STAGING_DIR)/host/bin
-	$(INSTALL_BIN) $(HOST_BUILD_DIR)/tools/rpcgen/rpcgen $(STAGING_DIR)/host/bin/rpcgen
+	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/bin
+	$(INSTALL_BIN) $(HOST_BUILD_DIR)/tools/rpcgen/rpcgen $(STAGING_DIR_HOSTPKG)/bin/rpcgen
 endef
 
 define Package/nfs-kernel-server/install

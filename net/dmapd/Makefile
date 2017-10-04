@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dmapd
-PKG_VERSION:=0.0.72
+PKG_VERSION:=0.0.73
 PKG_RELEASE:=1
 
 PKG_MAINTAINER:=W. Michael Petullo <mike@flyn.org>
@@ -18,7 +18,7 @@ PKG_LICENSE_FILES:=COPYING
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.flyn.org/projects/dmapd
-PKG_MD5SUM:=0fe290d1bf003296b1ed9dfcc0108d6f
+PKG_HASH:=5447e8d28cd93739efe479e8ca3e140043b11aca4427676e8990b300618011a1
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=2

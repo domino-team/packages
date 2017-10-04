@@ -8,22 +8,23 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=davfs2
-PKG_VERSION:=1.5.2
+PKG_VERSION:=1.5.4
 PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.savannah.gnu.org/releases/davfs2/
-PKG_MD5SUM:=376bc9346454135cba78afacbcb23f86
+PKG_HASH:=c9c4e0f0912a782386216b2147eb9c36c47f193b8fcf3d637719e0b9fe7c96e0
 
 PKG_FIXUP:=gettext-version autoreconf
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/davfs2
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=Filesystem
-  DEPENDS=+libneon +kmod-fuse +libfuse
+  DEPENDS=+libneon +kmod-fuse +libfuse $(ICONV_DEPENDS) $(INTL_DEPENDS)
   TITLE:=Mount a WebDAV resource as a regular file system.
   URL:=http://savannah.nongnu.org/projects/davfs2/
   MAINTAINER:=Federico Di Marco <fededim@gmail.com>
@@ -50,14 +51,14 @@ define Package/davfs2/conffiles
 /etc/davfs2/davfs2.conf
 endef
 
-TARGET_CFLAGS += -I$(STAGING_DIR)/usr/include
+TARGET_CFLAGS += -I$(STAGING_DIR)/usr/include # $(ICONV_CFLAGS) $(INTL_CFLAGS)
 
-TARGET_CPPFLAGS += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE
+TARGET_CPPFLAGS += -D_GNU_SOURCE  # $(ICONV_CPFLAGS) $(INTL_CPPFLAGS)
 
 CONFIGURE_VARS += \
-       LDFLAGS="$(TARGET_LDFLAGS) -L$(TOOLCHAIN_DIR)/usr/lib -L$(TOOLCHAIN_DIR)/lib"
+       LDFLAGS="$(TARGET_LDFLAGS) -L$(TOOLCHAIN_DIR)/usr/lib -L$(TOOLCHAIN_DIR)/lib $(if $(INTL_FULL),-lintl) $(if $(ICONV_FULL),-liconv)" #$(INTL_LDFLAGS) $(ICONV_LDFLAGS) 
 
-CONFIGURE_ARGS += --with-neon="$(STAGING_DIR)/usr"
+CONFIGURE_ARGS += --with-neon="$(STAGING_DIR)/usr" --enable-largefile #--with-libintl-prefix=$(INTL_PREFIX) --with-libiconv-prefix=$(ICONV_PREFIX)
 
 define Package/davfs2/install
 	$(INSTALL_DIR) $(1)/usr/sbin

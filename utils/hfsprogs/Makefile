@@ -19,7 +19,7 @@ PKG_MAINTAINER:=Florian Fainelli <florian@openwrt.org>
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).orig.tar.gz
 PKG_SOURCE_URL:=http://archive.ubuntu.com/ubuntu/pool/universe/h/$(PKG_NAME)
 PKG_BUILD_DIR:=$(BUILD_DIR)/diskdev_cmds-$(PKG_VERSION)
-PKG_MD5SUM:=261c3de5ec0dcf5244e3f60d79c1d6f1
+PKG_HASH:=74c9aeca899ed7f4bf155c65fc45bf0f250c0f6d57360ea953b1d536d9aa45e6
 PKG_LICENSE:=APSL 2.0
 
 include $(INCLUDE_DIR)/package.mk
@@ -29,7 +29,7 @@ define Package/hfsprogs/Default
   SECTION:=utils
   CATEGORY:=Utilities
   SUBMENU:=Filesystem
-  DEPENDS:=+libopenssl
+  DEPENDS:=+libopenssl +USE_GLIBC:libbsd
 endef
 
 define Package/hfsfsck
@@ -59,7 +59,8 @@ define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \
 		-f Makefile.lnx \
 		$(TARGET_CONFIGURE_OPTS) \
-		CFLAGS+="$(TARGET_CFLAGS) -I$(PKG_BUILD_DIR)/include -DDEBUG_BUILD=0 -D_FILE_OFFSET_BITS=64 -D LINUX=1 -D BSD=1" \
+		CFLAGS+="$(TARGET_CFLAGS) $(TARGET_CPPFLAGS) -I$(PKG_BUILD_DIR)/include -DDEBUG_BUILD=0 -D_FILE_OFFSET_BITS=64 -D LINUX=1 -D BSD=1" \
+		LDFLAGS+="$(TARGET_LDFLAGS) $(if $(CONFIG_USE_GLIBC),-lbsd)" \
 		all
 endef
 

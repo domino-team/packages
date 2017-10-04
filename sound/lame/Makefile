@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2007-2014 OpenWrt.org
+# Copyright (C) 2007-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -10,11 +10,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lame
 PKG_VERSION:=3.99.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/lame
-PKG_MD5SUM:=84835b313d4a8b68f5349816d33e07ce
+PKG_HASH:=24346b4158e4af3bd9f2e194bb23eb473c75fb7377011523353196b19b9a23ff
 PKG_FIXUP:=autoreconf
 
 PKG_MAINTAINER:=Ted Hess <thess@kitschensync.net>
@@ -30,7 +30,6 @@ define Package/lame/Default
   SECTION:=sound
   CATEGORY:=Sound
   URL:=http://sourceforge.net/projects/lame
-  DEPENDS:=@BUILD_PATENTED
 endef
 
 define Package/lame
@@ -53,12 +52,11 @@ define Package/lame-lib/description
 lame mp3 encoder libs
 endef
 
-define Build/Configure
-	$(call Build/Configure/Default, \
-	--disable-nasm \
-	)
-endef
+CONFIG_VARS+=NASM=no
 
+ifeq ($(ARCH),i386)
+TARGET_CFLAGS+=-msse
+endif
 
 define Package/lame/install
 	$(INSTALL_DIR) $(1)/usr/bin

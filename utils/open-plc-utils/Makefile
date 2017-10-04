@@ -8,14 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=open-plc-utils
-PKG_VERSION:=2015-09-21
+PKG_VERSION:=2017-01-15
 PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/qca/open-plc-utils.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=885a1b7e2e663b5ab8797db6d40a0318131fdf18
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_SOURCE_VERSION:=18b7e2a9a17f043fe8ac8b457680aafb1c249c55
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.xz
+PKG_MIRROR_HASH:=fd898954f3a7f4f1f1b02a61b748546d648e323642c004353aeb4b337dbaa5dc
 
 PKG_MAINTAINER:=Florian Fainelli <florian@openwrt.org>
 
@@ -42,11 +43,11 @@ define GenPlugin
   define Package/$(addprefix open-plc-utils-,$(1))
     $(call Package/open-plc-utils/Default)
     DEPENDS:=open-plc-utils
-    TITLE:=Utility $(2) from the Open PLC utilities
+    TITLE:=Utility $(1) from the Open PLC utilities
   endef
 
    define Package/$(addprefix open-plc-utils-,$(1))/description
-     Utility $(2) from the Open PLC utilities package.
+     Utility $(1) from the Open PLC utilities package.
    endef
 endef
 
@@ -75,10 +76,6 @@ OPEN_PLC_UTILS_APPS:=efbu efeu efru efsu edru edsu nics \
 
 $(foreach a,$(OPEN_PLC_UTILS_APPS),$(eval $(call GenPlugin,$(a))))
 
-ifdef CONFIG_USE_MUSL
-  TARGET_CFLAGS += -D__UCLIBC__
-endif
-
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \
 		EXTRA_CFLAGS="$(TARGET_CPPFLAGS) $(TARGET_CFLAGS)" \
@@ -91,6 +88,7 @@ define Build/Compile
 endef
 
 define Package/open-plc-utils/install
+	true
 endef
 
 define BuildPlugin

@@ -9,15 +9,19 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=memcached
-PKG_VERSION:=1.4.24
-PKG_RELEASE:=2
+PKG_VERSION:=1.5.1
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://memcached.org/files
-PKG_MD5SUM:=4d6e8c90e2068580526c7579dd7f37f6
-PKG_INSTALL:=1
+PKG_HASH:=a87908936b51d1bd3ef10a2347eef5647f003b63407a5d8161fa7928b1cd6b5c
+
 PKG_MAINTAINER:=Thomas Heil <heil@terminal-consulting.de>
-PKG_LICENSE:=permissive free software license
+
+PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE_FILES:=COPYING
+
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 

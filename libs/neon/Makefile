@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=neon
-PKG_VERSION:=0.30.0
-PKG_RELEASE:=1
+PKG_VERSION:=0.30.2
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.webdav.org/neon
-PKG_MD5SUM:=fb60b3a124eeec441937a812c456fd94
+PKG_HASH:=db0bd8cdec329b48f53a6f00199c92d5ba40b0f015b153718d1b15d3d967fbca
 
 PKG_INSTALL:=1
 
@@ -24,7 +24,7 @@ define Package/libneon
   CATEGORY:=Libraries
   TITLE:=HTTP and WebDAV client library
   URL:=http://www.webdav.org/neon/
-  DEPENDS:=+libopenssl +libexpat
+  DEPENDS:=+libopenssl +libexpat +zlib
   MAINTAINER:=Federico Di Marco <fededim@gmail.com>
 endef
 
@@ -44,7 +44,7 @@ endef
 
 
 TARGET_CFLAGS += $(FPIC)
-TARGET_CPPFLAGS += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE
+TARGET_CPPFLAGS += -D_GNU_SOURCE
 
 CONFIGURE_ARGS += \
 	--enable-shared \

@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gammu
-PKG_VERSION:=1.36.8
+PKG_VERSION:=1.38.4
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://dl.cihar.com/gammu/releases/
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_MD5SUM:=462d45f9fb359bd7931c288785028e2d
+PKG_HASH:=a8ba1dc52ee82562abd57e9546c409f2f887f45187aae012fe43af0b730611ae
 PKG_MAINTAINER:=Vitaly Protsko <villy@sft.ru>
 PKG_LICENCE:=GPL-2.0
 
@@ -48,7 +48,7 @@ endif
 
 define Build/InstallDev
 	mkdir -p $(1)/usr/include
-	$(CP) -r $(PKG_INSTALL_DIR)/usr/include/gammu $(1)/usr/include/
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/gammu $(1)/usr/include/
 	mkdir -p $(1)/usr/lib
 	$(CP)    $(PKG_INSTALL_DIR)/usr/lib$(LIB_SUFFIX)/lib{Gammu*,gsmsd*} $(1)/usr/lib/
 endef

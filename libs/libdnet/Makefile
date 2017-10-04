@@ -11,15 +11,17 @@ PKG_NAME:=libdnet
 PKG_VERSION:=1.12
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://libdnet.googlecode.com/files/
-PKG_MD5SUM:=9253ef6de1b5e28e9c9a62b882e44cc9
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/dugsong/libdnet/archive
+PKG_HASH:=b6360659c93fa2e3cde9e0a1fc9c07bc4111f3448c5de856e095eb98315dd424
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 PKG_LICENSE:=BSD
 PKG_MAINTAINER:=Luka Perkov <luka@openwrt.org>
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 

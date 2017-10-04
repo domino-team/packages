@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=acpid
-PKG_VERSION:=2.0.25
+PKG_VERSION:=2.0.27
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@SF/acpid2 
-PKG_MD5SUM:=69bb0cc4a0a89eb2dfecc4851087f568
-PKG_MAINTAINER:=Thomas Heil<heil@terminal-consulting.de>
+PKG_HASH:=820c223e53cc11d9d7229fb1ffc2c2205f1054082c80f83f5a4ec4df16d3a616
+PKG_MAINTAINER:=Thomas Heil <heil@terminal-consulting.de>
 PKG_LICENSE:=GPL-2.0
 PKG_LICENSE_FILES:=COPYING
 

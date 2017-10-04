@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2007-2014 OpenWrt.org
+# Copyright (C) 2007-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libzdb
-PKG_VERSION:=3.0
-PKG_RELEASE:=1
+PKG_VERSION:=3.1
+PKG_RELEASE:=3
 PKG_LICENSE:=GPL-3.0
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.tildeslash.com/libzdb/dist/
-PKG_MD5SUM:=3bb9efff10a1f3ebc5b76c1055c48635
+PKG_HASH:=0f01abb1b01d1a1f4ab9b55ad3ba445d203fc3b4757abdf53e1d85e2b7b42695
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -22,10 +22,6 @@ PKG_INSTALL:=1
 PKG_BUILD_DEPENDS:=libzdb/host
 
 include $(INCLUDE_DIR)/package.mk
-
-ifeq ($(CONFIG_USE_MUSL),n)
-    LDFLAGS += -lnsl
-endif
 
 define Package/libzdb
     SECTION:=libs
@@ -67,8 +63,8 @@ define Host/Compile
 endef
 
 define Host/Install
-	$(INSTALL_DIR) $(STAGING_DIR)/host/bin
-	$(CP) $(HOST_BUILD_DIR)/tools/bin/filterh $(STAGING_DIR)/host/bin/
+	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/bin
+	$(CP) $(HOST_BUILD_DIR)/tools/bin/filterh $(STAGING_DIR_HOSTPKG)/bin/
 endef
 
 $(eval $(call HostBuild))

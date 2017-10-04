@@ -15,12 +15,12 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:= \
 	http://xmlsoft.org/sources/ \
 	ftp://fr.rpmfind.net/pub/libxml/
-PKG_MD5SUM:=9667bf6f9310b957254fdcf6596600b7
+PKG_HASH:=5fc7151a57b89c03d7b825df5a0fae0a8d5f05674c0e7cf2937ecec4d54a028c
 
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=COPYING
 
-PKG_MAINTAINER:=Jiri Slachta <slachta@cesnet.cz>
+PKG_MAINTAINER:=Jiri Slachta <jiri@slachta.eu>
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -43,7 +43,7 @@ define Package/libexslt
   SECTION:=libs
   CATEGORY:=Libraries
   DEPENDS:=+libxslt
-  TITLE:=Gnome XSLT library Extention
+  TITLE:=Gnome XSLT library Extension
   URL:=http://xmlsoft.org/XSLT/EXSLT/
 endef
 

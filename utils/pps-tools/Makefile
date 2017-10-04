@@ -16,8 +16,9 @@ PKG_SOURCE_URL:=git://github.com/ago/pps-tools
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=0deb9c7e135e9380a6d09e9d2e938a146bb698c8
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_MIRROR_HASH:=46bd7acf9a0f8fec1858496844ba0ef2f9525a22ac8c5c61b3fc4f2dc5881f33
 
-PKG_MAINTAINER := Zoltan HERPAI <wigyori@uid0.hu>
+PKG_MAINTAINER:=Zoltan HERPAI <wigyori@uid0.hu>
 PKG_LICENSE:=GPL-2.0
 
 include $(INCLUDE_DIR)/package.mk
@@ -29,7 +30,7 @@ define Package/pps-tools
 endef
 
 define Package/pps-tools/description
-  Userland tools for GPS and DCF-77 Clock syncronization. PPS support in Kernel must be enabled.
+  Userland tools for GPS and DCF-77 Clock synchronization. PPS support in Kernel must be enabled.
 endef
 
 TARGET_CFLAGS += -I$(STAGING_DIR)/usr/include

@@ -18,7 +18,7 @@ PKG_LICENSE_FILES:=COPYING
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@GNOME/libgee/0.18/
-PKG_MD5SUM:=29ea6125e653d7e60b49a9a9544abc96
+PKG_HASH:=4ad99ef937d071b4883c061df40bfe233f7649d50c354cf81235f180b4244399
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
@@ -57,10 +57,10 @@ define Build/InstallDev
 	$(INSTALL_DATA) \
 		$(PKG_INSTALL_DIR)/usr/lib/pkgconfig/*.pc \
 		$(1)/usr/lib/pkgconfig/
-	$(INSTALL_DIR) $(STAGING_DIR)/host/share/vala-0.30/vapi/
+	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/share/vala-0.30/vapi/
 	$(INSTALL_DATA) \
                 $(PKG_INSTALL_DIR)/usr/share/vala/vapi/* \
-                $(STAGING_DIR)/host/share/vala-0.30/vapi
+                $(STAGING_DIR_HOSTPKG)/share/vala-0.30/vapi
 endef
 
 define Package/libgee/install

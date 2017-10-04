@@ -17,6 +17,7 @@ PKG_SOURCE_URL:=https://github.com/intel-iot-devkit/upm.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=04dc6df4297a7766d6f1a8fef9699d586e7e0d92
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_MIRROR_HASH:=26bc9c32eea0b8aa6218735e30a3d2317431518f0b2a055c0f21e78e6d92ca4f
 CMAKE_INSTALL:=1
 
 PKG_MAINTAINER:=John Crispin <blogic@openwrt.org>
@@ -36,8 +37,8 @@ UPM_MODULES:= \
 	th02 tm1637 tsl2561 ttp223 ublox6 uln200xa waterlevel wheelencoder wt5001 yg1006 zfm20
 
 CMAKE_OPTIONS=-DBUILDARCH=$(CONFIG_ARCH) \
-	-DNODE_EXECUTABLE=$(STAGING_DIR)/host/bin/node \
-	-DSWIG_DIR=$(STAGING_DIR)/host/bin
+	-DNODE_EXECUTABLE=$(STAGING_DIR_HOSTPKG)/bin/node \
+	-DSWIG_DIR=$(STAGING_DIR_HOSTPKG)/bin
 
 define Package/libupm/Default
   SECTION:=libs

@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/liblo
-PKG_MD5SUM:=e2a4391a08b49bb316c03e2034e06fa2
+PKG_HASH:=da94a9b67b93625354dd89ff7fe31e5297fc9400b6eaf7378c82ee1caf7db909
 
 PKG_LICENSE:=LGPL-2.1+
 PKG_LICENSE_FILES:=COPYING
@@ -24,7 +24,6 @@ PKG_INSTALL:=1
 include $(INCLUDE_DIR)/package.mk
 
 define Package/liblo/Default
-  SUBMENU:=Sound
   TITLE:=Lightweight Open Sound Control (OSC)
   URL:=http://liblo.sourceforge.net/
 endef
@@ -33,14 +32,14 @@ define Package/liblo
 $(call Package/liblo/Default)
   SECTION:=libs
   CATEGORY:=Libraries
+  SUBMENU:=Sound
   TITLE+= library
   DEPENDS:= +libpthread
 endef
 
 define Package/liblo-utils
 $(call Package/liblo/Default)
-  SECTION:=utils
-  CATEGORY:=Utilities
+  CATEGORY:=Sound
   TITLE+= utilities
   DEPENDS:= +liblo
 endef

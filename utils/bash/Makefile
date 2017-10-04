@@ -15,7 +15,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(BASE_VERSION).tar.gz
 PKG_SOURCE_URL:=@GNU/bash
-PKG_MD5SUM:=81348932d5da294953e15d4814c74dd1
+PKG_HASH:=afc687a28e0e24dc21b988fa159ff9dbcf6b7caa92ade8645cc6d5605cd024d4
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BASE_VERSION)
 
 PKG_LICENSE:=GPL-3.0+
@@ -28,6 +28,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/bash
   SECTION:=utils
   CATEGORY:=Utilities
+  SUBMENU:=Shells
   TITLE:=The GNU Bourne Again SHell
   DEPENDS:=+libncurses
   URL:=http://www.gnu.org/software/bash/

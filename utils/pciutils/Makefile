@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2007-2015 OpenWrt.org
+# Copyright (C) 2007-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pciutils
-PKG_VERSION:=3.4.0
-PKG_RELEASE:=1
+PKG_VERSION:=3.5.2
+PKG_RELEASE:=3
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@KERNEL/software/utils/pciutils
-PKG_MD5SUM:=46674cdbf2f72e4cfef75fea1b1ec5c8
+PKG_HASH:=3a99141a9f40528d0a0035665a06dc37ddb1ae341658e51b50a76ecf86235efc
 PKG_MAINTAINER:=Álvaro Fernández Rojas <noltari@gmail.com>
 
 PKG_LICENSE:=GPL-2.0
@@ -37,17 +37,27 @@ define Package/pciutils/description
  of PCI devices
 endef
 
-define Package/pciutils/postinst
-#!/bin/sh
-[ -z "$${IPKG_INSTROOT}" ] || \
-(cd $${PKG_ROOT}/usr/share; $${PKG_ROOT}/usr/sbin/update-pciids; rm pci.ids.gz.old)
-exit 0
+PCI_IDS_REV:=91cfa8a0c994634ba9a4a8639aa2ac6dff8453b9
+PCI_IDS_FILE:=pci.ids.$(PCI_IDS_REV)
+define Download/pci_ids
+  FILE:=$(PCI_IDS_FILE)
+  URL_FILE:=pci.ids
+  URL:=@GITHUB/pciutils/pciids/$(PCI_IDS_REV)
+  HASH:=798528092d1c58eeac99c6505033ec4ce8fe3e19d7e0c41b06790d58753a89b6
+endef
+$(eval $(call Download,pci_ids))
+
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(RM) $(PKG_BUILD_DIR)/pci.ids
+	$(CP) $(DL_DIR)/$(PCI_IDS_FILE) $(PKG_BUILD_DIR)/pci.ids
 endef
 
 MAKE_FLAGS += \
-	CFLAGS="$(TARGET_CFLAGS) -I$(STAGING_DIR)/usr/include" \
+	CFLAGS="$(TARGET_CFLAGS) $(TARGET_CPPFLAGS)" \
 	PREFIX="/usr" \
-	HOST="$(GNU_TARGET_NAME)" \
+	HOST="Linux" \
+	HWDB="no" \
 	ZLIB="yes"
 
 ifneq ($(CONFIG_USE_GLIBC),)

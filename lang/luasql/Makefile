@@ -12,6 +12,7 @@ PKG_VERSION:=2.3.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_MIRROR_HASH:=b6251065656bf3e066d90d492dd06eec2c2cc76ab4b94187ce3ed9620d41f741
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_URL:=https://github.com/keplerproject/luasql.git
@@ -30,7 +31,7 @@ define Package/luasql/Default
   SECTION:=lang
   CATEGORY:=Languages
   TITLE:=Lua SQL binding
-  URL:=http://www.keplerproject.org/luasql/
+  URL:=http://keplerproject.github.io/luasql/
   DEPENDS:= +lua
 endef
 

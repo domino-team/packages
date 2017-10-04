@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2014 OpenWrt.org
+# Copyright (C) 2011-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pulseaudio
-PKG_VERSION:=7.1
-PKG_RELEASE:=1
+PKG_VERSION:=11.0
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://freedesktop.org/software/pulseaudio/releases/
-PKG_MD5SUM:=9d0a9817b632cac8e3f3834d7eb1c99d
+PKG_HASH:=072305d4018fc5e75bb1b45ee6b938fa52fc9fd27493bf327415ef89ed14c969
 PKG_LICENSE:=LGPL-2.1+
 PKG_LICENSE_FILES:=GPL LICENSE
 
@@ -30,8 +30,8 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/pulseaudio/Default
   SECTION:=sound
   CATEGORY:=Sound
-  DEPENDS:=+libspeexdsp +libsndfile +libltdl +libpthread \
-	+librt +alsa-lib +libopenssl +libwrap +libcap $(ICONV_DEPENDS) $(INTL_DEPENDS)
+  DEPENDS:=+libsndfile +libltdl +libpthread +librt +alsa-lib \
+	+libopenssl +libwrap +libcap $(ICONV_DEPENDS) $(INTL_DEPENDS)
   TITLE:=Network sound server
   MAINTAINER:=Peter Wagner <tripolar@gmx.at>
   URL:=http://www.pulseaudio.org
@@ -41,7 +41,6 @@ endef
 
 define Package/pulseaudio-daemon
   $(call Package/pulseaudio/Default)
-  DEPENDS+= +libjson-c
 endef
 
 define Package/pulseaudio/Default/description
@@ -70,7 +69,7 @@ endef
 define Package/pulseaudio-profiles
   SECTION:=sound
   CATEGORY:=Sound
-  DEPENDS:=pulseaudio
+  DEPENDS:=+pulseaudio
   TITLE:=Profiles for Pulseaudio
   URL:=http://www.pulseaudio.org
 endef
@@ -99,7 +98,9 @@ CONFIGURE_ARGS += \
 	--disable-udev \
 	--without-fftw \
 	--disable-avahi \
-	--disable-dbus
+	--disable-dbus \
+	--without-soxr \
+	--without-speex
 
 CONFIGURE_VARS += \
 	PKG_CONFIG_LIBDIR="$(STAGING_DIR)/usr/lib/pkgconfig"
@@ -144,7 +145,7 @@ define Package/pulseaudio-daemon/install
 		./files/pulseaudio.init \
 		$(1)/etc/init.d/pulseaudio
 
-	$(INSTALL_CONF) \
+	$(INSTALL_DATA) \
 		$(PKG_INSTALL_DIR)/etc/pulse/* \
 		$(1)/etc/pulse
 
@@ -164,7 +165,6 @@ define Package/pulseaudio-daemon/install
 		$(PKG_INSTALL_DIR)/usr/lib/pulse-$(PKG_VERSION)/modules/module*.so \
 		$(1)/usr/lib/pulse-$(PKG_VERSION)/modules/
 
-	chmod -R 0644 $(1)/etc/pulse/*
 endef
 
 define Package/pulseaudio-tools/install
@@ -181,11 +181,11 @@ define Package/pulseaudio-profiles/install
 		$(1)/usr/share/pulseaudio/alsa-mixer/paths \
 		$(1)/usr/share/pulseaudio/alsa-mixer/profile-sets
 
-	$(INSTALL_CONF) \
+	$(INSTALL_DATA) \
 		$(PKG_INSTALL_DIR)/usr/share/pulseaudio/alsa-mixer/paths/* \
 		$(1)/usr/share/pulseaudio/alsa-mixer/paths
 
-	$(INSTALL_CONF) \
+	$(INSTALL_DATA) \
 		$(PKG_INSTALL_DIR)/usr/share/pulseaudio/alsa-mixer/profile-sets/* \
 		$(1)/usr/share/pulseaudio/alsa-mixer/profile-sets
 endef

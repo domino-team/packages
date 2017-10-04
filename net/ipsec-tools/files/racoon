@@ -51,6 +51,10 @@ config sainfo 'office'
 	option	p2_proposal	'example_prop2'
 	option	local_net	'192.168.8.0/24'
 	option	remote_net	'192.168.1.0/24'
+# you can exclude some local or remote
+# addresses from SA rules
+	list	local_exclude	'192.168.8.0/30'
+	list	remote_exclude	'192.168.1.128/29'
 
 config sainfo 'welcome'
 	option	p2_proposal	'example_in2'
@@ -60,7 +64,7 @@ config sainfo 'welcome'
 	option	defdomain	'myhome.local'
 
 config sainfo 'client'
-	p2_proposal		'std_p2'
+	option  p2_proposal	'std_p2'
 
 config tunnel 'Office'
 	option	enabled		1

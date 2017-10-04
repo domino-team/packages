@@ -9,15 +9,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mksh
-PKG_VERSION:=50d
+PKG_VERSION:=55
 PKG_RELEASE:=1
 
 PKG_MAINTAINER:=Thorsten Glaser <tg@mirbsd.org>
 PKG_LICENSE:=MirOS
 
 PKG_SOURCE:=$(PKG_NAME)-R$(PKG_VERSION).tgz
-PKG_SOURCE_URL:=http://www.mirbsd.org/MirOS/dist/mir/mksh
-PKG_MD5SUM:=1c3882c07a760b23df1ad94ad0b4ed2e
+PKG_SOURCE_URL:=http://www.mirbsd.org/MirOS/dist/mir/mksh \
+		http://pub.allbsd.org/MirOS/dist/mir/mksh
+PKG_HASH:=ced42cb4a181d97d52d98009eed753bd553f7c34e6991d404f9a8dcb45c35a57
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
@@ -62,7 +63,7 @@ define Build/Compile
 		CC="$(TARGET_CC)" \
 		TARGET_OS="$(shell uname -s)" \
 		CFLAGS="$(TARGET_CFLAGS)" \
-		CPPFLAGS="-DMKSH_SMALL=1 -DMKSH_ASSUME_UTF8=0 -DMKSH_BINSHPOSIX" \
+		CPPFLAGS="-DMKSH_SMALL=1 -DMKSH_ASSUME_UTF8=0 -DMKSH_BINSHPOSIX -DMKSHRC_PATH=\\\"/etc/mkshrc\\\"" \
 		HAVE_CAN_FSTACKPROTECTORALL=0 \
 		HAVE_CAN_FSTACKPROTECTORSTRONG=0 \
 		LDFLAGS="$(TARGET_LDFLAGS)" \

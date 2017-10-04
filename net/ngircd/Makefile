@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ngircd
-PKG_VERSION:=22.1
+PKG_VERSION:=24
 PKG_RELEASE:=1
 PKG_MAINTAINER:=Claudio Leite <leitec@staticky.com>
 PKG_LICENSE:=GPL-2.0
@@ -18,7 +18,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:= \
         http://ngircd.barton.de/pub/ngircd/ \
         ftp://ftp.berlios.de/pub/ngircd/
-PKG_MD5SUM:=586c4fef1fbb77dcbe723e9136ec08eb
+PKG_HASH:=3e00a7da52c81fc1e02bb996a27bf43da905ba7037bf8c6bb3bd13321e0c85ab
 
 PKG_INSTALL:=1
 

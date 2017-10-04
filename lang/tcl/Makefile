@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)$(PKG_VERSION)-src.tar.gz
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)
-PKG_MD5SUM:=d7cbb91f1ded1919370a30edd1534304
+PKG_HASH:=9e6ed94c981c1d0c5f5fefb8112d06c6bf4d050a7327e95e71d417c416519c8d
 
 PKG_LICENSE:=TCL
 PKG_LICENSE_FILES:=license.terms
@@ -30,7 +30,7 @@ define Package/tcl
   SUBMENU:=Tcl
   SECTION:=lang
   CATEGORY:=Languages
-  DEPENDS:=+libpthread
+  DEPENDS:=+libpthread @BROKEN
   TITLE:=The Tcl language
   URL:=http://www.tcl.tk/
 endef

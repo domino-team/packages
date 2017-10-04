@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2006-2012 OpenWrt.org
+# Copyright (C) 2006-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,12 +9,12 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/uclibc++.mk
 
 PKG_NAME:=smartmontools
-PKG_VERSION:=6.4
+PKG_VERSION:=6.5
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/smartmontools
-PKG_MD5SUM:=56812c8312fd123ed40ef65afde1049e
+PKG_HASH:=89e8bb080130bc6ce148573ba5bb91bfe30236b64b1b5bbca26515d4b5c945bc
 PKG_MAINTAINER:=Maxim Storchak <m.storchak@gmail.com>
 PKG_LICENSE:=GPL-2.0+
 PKG_LICENSE_FILES:=COPYING
@@ -55,13 +55,17 @@ define Package/smartd/description
   ATA and SCSI disks. It is derived from smartsuite.
 endef
 
-# uses GNU configure
+ifeq ($(CONFIG_USE_UCLIBCXX),y)
+  UCXXCFLAGS:=-fno-builtin -fno-rtti -nostdinc++
+  UCXXCPPFLAGS:=-I$(STAGING_DIR)/usr/include/uClibc++
+  UCXXLIBS:=-nodefaultlibs -lc -luClibc++
+endif
 
 CONFIGURE_VARS += \
-	CXXFLAGS="$$$$CXXFLAGS -fno-builtin -fno-rtti -nostdinc++" \
-	CPPFLAGS="$$$$CPPFLAGS -I$(STAGING_DIR)/usr/include/uClibc++ -I$(LINUX_DIR)/include" \
+	CXXFLAGS="$$$$CXXFLAGS $(UCXXCFLAGS)" \
+	CPPFLAGS="$$$$CPPFLAGS $(UCXXCPPFLAGS) -I$(LINUX_DIR)/include" \
 	LDFLAGS="$$$$LDFLAGS" \
-	LIBS="-nodefaultlibs -lc -luClibc++ -lm $(LIBGCC_S) -lc" \
+	LIBS="$(UCXXLIBS) -lm $(LIBGCC_S) -lc" \
 
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \

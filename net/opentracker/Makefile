@@ -1,6 +1,3 @@
-#
-# Copyright (C) 2006-2014 OpenWrt.org
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -8,9 +5,10 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=opentracker
-PKG_VERSION:=20150427
+PKG_VERSION:=20170428
 PKG_RELEASE:=1
-PKG_REV:=27499d7a55bde404f3273a23026f2495e96adf87
+PKG_REV:=9c7be324f5a4306dd81eab2f982f87e2c42ffdf1
+PKG_MIRROR_HASH:=fda6098a9bdf080c852c5b513ada67d065c1286ad3d4617c05f3a3d9ebb81536
 PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
 PKG_LICENSE:=Beerware
 
@@ -75,6 +73,14 @@ MAKE_FLAGS += PREFIX="$(STAGING_DIR)/usr"
 ifeq ($(BUILD_VARIANT),ipv6)
   MAKE_FLAGS += FEATURES="-DWANT_V6"
 endif
+
+define Package/opentracker/conffiles
+/etc/opentracker.conf
+endef
+
+define Package/opentracker6/conffiles
+/etc/opentracker6.conf
+endef
 
 define Package/opentracker/install
 	$(INSTALL_DIR) $(1)/usr/bin

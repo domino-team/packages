@@ -9,11 +9,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=shine
 PKG_VERSION:=3.1.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/savonet/shine/releases/download/$(PKG_VERSION)/
-PKG_MD5SUM:=fcad8108335f4b051b303fbdf3fca3fe
+PKG_SOURCE_URL:=https://github.com/toots/shine/releases/download/$(PKG_VERSION)/
+PKG_HASH:=6c5310bda766b116ed2415d639a27e5e11040e068b4b2db6bd733333e620cb4f
 
 PKG_LICENSE:=GPL-2.0
 PKG_LICENSE_FILES:=COPYING
@@ -29,7 +29,7 @@ define Package/shine
   SECTION:=sound
   CATEGORY:=Sound
   TITLE:=Super fast fixed-point MP3 encoder
-  URL:=https://github.com/savonet/shine
+  URL:=https://github.com/toots/shine
 endef
 
 define Package/shine/description
